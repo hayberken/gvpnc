@@ -1,5 +1,5 @@
 #!/usr/bin/python2.2
-#
+# coding=UTF-8
 
 # gvpnc v. 1.01
 # Copyright © 2007, Super Mike
@@ -21,7 +21,6 @@ import gtk;
 import gobject;
 import gtk.gdk;
 import gtk.glade;
-from gtk import TRUE, FALSE;
 
 # assign our globals
 global txtResultFont;
@@ -100,14 +99,14 @@ def GetWidgetText(sName):
 		try: # for scrolling textboxes
 			c1 = Widget(sName).get_buffer().get_start_iter();
 			c2 = Widget(sName).get_buffer().get_end_iter();
-			sResult = Widget(sName).get_buffer().get_slice(c1,c2,TRUE);
+			sResult = Widget(sName).get_buffer().get_slice(c1,c2,True);
 		except:
 			a = '';
 	if (sResult == ''):
 		try: # for scrolling textboxes
 			c1 = Widget(sName).get_buffer().get_start_iter();
 			c2 = Widget(sName).get_buffer().get_end_iter();
-			sResult = Widget(sName).get_buffer().get_slice(c1,c2,TRUE);
+			sResult = Widget(sName).get_buffer().get_slice(c1,c2,True);
 		except:
 			sResult = '';
 	return sResult;
@@ -276,15 +275,15 @@ def StrRight(sInput, nIndex):
 
 def StrContains(sHaystack, sNeedle):
 	if (string.find(sHaystack, sNeedle) != -1):
-		return TRUE;
+		return True;
 	else:
-		return FALSE;
+		return False;
 		
 def StrDoesNotContain(sHaystack, sNeedle):
 	if (string.find(sHaystack, sNeedle) == -1):
-		return TRUE;
+		return True;
 	else:
-		return FALSE;		
+		return False;		
 			
 def ReadFile(sFile):
 	sCmd = 'cat "' + sFile + '"';
@@ -326,10 +325,10 @@ def OpenMozilla(sProtocol, sURL):
 	SpawnBash(sCmd);		
 	
 def DisableWidget(sName):
-	Widget(sName).set_property('sensitive',FALSE);	
+	Widget(sName).set_property('sensitive',False);	
 
 def EnableWidget(sName):
-	Widget(sName).set_property('sensitive',TRUE);
+	Widget(sName).set_property('sensitive',True);
 	
 def GetUser():
 	sCmd = 'whoami | tr -d "\n"';
@@ -365,7 +364,7 @@ def gtk_main_quit(*args):
 
 def Refresh():
     while gtk.events_pending():
-        gtk.mainiteration(FALSE);
+        gtk.mainiteration(False);
 
 def QuitAll():
 	Destroy('main');
