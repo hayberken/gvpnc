@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+# this is probably broke below -- you'll need to do a 'cd' first to where the python file is located
+#
+# FIX ME
+#
+gksudo "/usr/bin/python $PWD/gvpnc.py"
