@@ -1,4 +1,4 @@
-#!/usr/bin/python2.2
+#!/usr/bin/env python
 # coding=UTF-8
 
 # gvpnc v. 1.01
@@ -30,7 +30,7 @@ global window;
 def on_Run(*args):
 	sCmd = 'cat /etc/vpnc/gvpnc.conf | grep "gateway" | cut -d " " -f 3 | tr -d "\n"';
 	sResult = RunBash(sCmd);
-	if (StrDoesNotContain(sResult, 'cat: ')):
+	if not 'cat: ' in sResult:
 		SetWidgetText('run_server',sResult);
 		Widget('run_password').grab_focus();
 		sCmd = 'cat /etc/vpnc/gvpnc.conf | grep "IPSec ID" | cut -d " " -f 3 | tr -d "\n"';
@@ -66,7 +66,7 @@ def on_RunNow(*args):
 	Refresh();
 	Refresh();
 	sResult = RunBash(sCmd);
-	if (StrDoesNotContain(sResult, 'vpnc: ')):
+	if not 'vpnc: ' in sResult:
 		Status('Server: ' + sServer + ' CONNECTED');
 	else:
 		Status('Server: ' + sServer + ' Disconnected');
@@ -76,8 +76,8 @@ def on_Stop(*args):
 	sServer = GetWidgetText('run_server');
 	sCmd = 'vpnc-disconnect';
 	sResult = RunBash(sCmd);
-	if (StrDoesNotContain(sResult, 'vpnc: ')):
-		Status('Server: ' + sServer + ' Disconnected');	
+	if not 'vpnc: ' in sResult:
+		Status('Server: ' + sServer + ' Disconnected');
 	SetWidgetText('txtResult', sResult);
 	
 def on_RunCancel(*args):
@@ -252,7 +252,7 @@ def PrepareSaveFile(sTitleMessage, sFileExtension, bRootHomeSafety):
 				return;
 		sCmd = 'file "' + sFile + '"';
 		sResult = RunBash(sCmd);
-		if (StrDoesNotContain(sResult, "can't stat")):
+		if not "can't stat" in sResult:
 			result = QuestionYesNoBox("Do you wish to overwrite\n'" + sFile + "' ?");
 			if (result != gtk.RESPONSE_YES):
 				return;
@@ -278,18 +278,12 @@ def StrContains(sHaystack, sNeedle):
 		return True;
 	else:
 		return False;
-		
-def StrDoesNotContain(sHaystack, sNeedle):
-	if (string.find(sHaystack, sNeedle) == -1):
-		return True;
-	else:
-		return False;		
-			
+
 def ReadFile(sFile):
 	sCmd = 'cat "' + sFile + '"';
 	sResult = RunBash(sCmd);
 	return sResult;
-	
+
 def RemoveFile(sFile):
 	if (sFile == ''):
 		return;
@@ -396,9 +390,7 @@ MyWindows.signal_autoconnect(locals());
 # show our main window and go into main loop
 ShowWindow('main');
 Widget('statusbar1').grab_focus();
-sCmd = 'whoami | tr -d "\n"';
-sResult = RunBash(sCmd);
-if (StrDoesNotContain(sResult, 'root')):
+if os.geteuid() != 0:
 	ErrorBox('This tool requires that it be run as root user.');
 	QuitAll();
 gtk.main();
