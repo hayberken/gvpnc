@@ -1,11 +1,5 @@
 #summary TODO list for gvpnc
 
-= Introduction =
-
-This is our TODO list.
-
-= Details =
-
 == Open items ==
  * stop using glade? (use GtkBuilder)
  * support additional vpnc options?
