@@ -1,4 +1,5 @@
 #summary TODO list for gvpnc
+#labels Featured
 
 == Open items ==
  * stop using glade? (use GtkBuilder)
