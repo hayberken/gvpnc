@@ -97,9 +97,8 @@ def on_RunNow(*args):
 
 def on_Stop(*args):
 	sServer = GetWidgetText('run_server')
-	result = subprocess.call(["gksudo", "vpnc-disconnect"])
-	print result
-	if result:
+	Result = subprocess.call(["gksudo", "vpnc-disconnect"])
+	if Result:
 		Status("No vpnc found running.")
 	else:
 		Status('Server: ' + sServer + ' Disconnected')
@@ -347,6 +346,7 @@ txtResultFont.set_property('font', 'Luxi Mono 8')
 MyWindows.signal_autoconnect(locals())
 
 # make sure user configuration directory exists
+os.umask(066)  #make sure only owner can access any files we create
 print CONFIGDIR
 if not os.path.exists(CONFIGDIR):
 	os.makedirs(CONFIGDIR)
