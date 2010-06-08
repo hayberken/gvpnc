@@ -112,9 +112,6 @@ def on_AboutClose(*args):
 
 # and now our functions to make life easier
 
-def DoNothing():
-	print('test')
-
 def GetWidgetText(sName):
 	sResult = ''
 	try: # for ordinary text fields
@@ -125,7 +122,7 @@ def GetWidgetText(sName):
 			c2 = Widget(sName).get_buffer().get_end_iter()
 			sResult = Widget(sName).get_buffer().get_slice(c1,c2,True)
 		except:
-			a = ''
+			pass
 	if (sResult == ''):
 		try: # for scrolling textboxes
 			c1 = Widget(sName).get_buffer().get_start_iter()
@@ -141,7 +138,7 @@ def SetWidgetText(sName, sText):
 			aReset = string.split('\n', "\n")
 			Widget(sName).set_popdown_strings(aReset)
 		except:
-			a = ''
+			pass
 	try:
 		Widget(sName).get_buffer().set_text(sText)
 	except:
@@ -323,7 +320,7 @@ def Refresh():
 
 def QuitAll():
 	Destroy('main')
-	subprocess.call(["gksudo", "vpnc-disconnect"])
+#	subprocess.call(["gksudo", "vpnc-disconnect"])
 	gtk.main_quit()
 
 PROGNAME = 'GVPNC'
@@ -347,7 +344,6 @@ MyWindows.signal_autoconnect(locals())
 
 # make sure user configuration directory exists
 os.umask(066)  #make sure only owner can access any files we create
-print CONFIGDIR
 if not os.path.exists(CONFIGDIR):
 	os.makedirs(CONFIGDIR)
 
