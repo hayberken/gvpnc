@@ -28,21 +28,26 @@ global window;
 
 # our signal handling (mostly in menu order)
 def on_Run(*args):
-	sCmd = 'cat /etc/vpnc/gvpnc.conf | grep "gateway" | cut -d " " -f 3 | tr -d "\n"';
-	sResult = RunBash(sCmd);
-	if not 'cat: ' in sResult:
-		SetWidgetText('run_server',sResult);
-		Widget('run_password').grab_focus();
-		sCmd = 'cat /etc/vpnc/gvpnc.conf | grep "IPSec ID" | cut -d " " -f 3 | tr -d "\n"';
-		sResult = RunBash(sCmd);
-		SetWidgetText('run_groupname',sResult);
-		sCmd = 'cat /etc/vpnc/gvpnc.conf | grep "IPSec secret" | cut -d " " -f 3 | tr -d "\n"';
-		sResult = RunBash(sCmd);
-		SetWidgetText('run_grouppassword',sResult);
-		sCmd = 'cat /etc/vpnc/gvpnc.conf | grep "Xauth username" | cut -d " " -f 3 | tr -d "\n"';
-		sResult = RunBash(sCmd);
-		SetWidgetText('run_username',sResult);
-	SetWidgetText('run_password','');
+	gateway = group = group_pwd = username = password = None
+	lines = file("/etc/vpnc/gvpnc.conf").readlines()
+	for line in lines:
+		if line.startswith("IPSec gateway"):
+			gateway = line.split()[2]
+		elif line.startswith("IPSec ID"):
+			group = line.split()[2]
+		elif line.startswith("IPSec secret"):
+			group_pwd = line.split()[2]
+		elif line.startswith("Xauth username"):
+			username = line.split()[2]
+		elif line.startswith("Xauth password"):
+			password = line.split()[2]
+
+	SetWidgetText('run_server',gateway);
+	Widget('run_password').grab_focus();
+	SetWidgetText('run_groupname',group);
+	SetWidgetText('run_grouppassword',group_pwd);
+	SetWidgetText('run_username',username);
+	SetWidgetText('run_password',password);
 	ShowWindow('run_command');
 	
 def on_Quit(*args):
@@ -366,8 +371,8 @@ def QuitAll():
 	sResult = RunBash(sCmd);
 	# Destroy('run_command');
 	gtk.main_quit();
-	
-PROGNAME = 'Bash UI';
+
+PROGNAME = 'GVPNC';
 
 # load our Glade2 file with the GUI
 MyWindows = gtk.glade.XML('gvpnc.glade',None,domain=PROGNAME);
