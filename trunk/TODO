@@ -4,6 +4,8 @@ Open items
 * support additional vpnc options???
 * figure out what is wrong with subprocess.Popen and vpnc (until this is fixed, I can't display vpnc output in the text-area)
 * don't store plaintext passwords!!
+* create a .desktop file
+* create an installer script
 
 Completed items
 * only run vpnc with gksudo (Done)
