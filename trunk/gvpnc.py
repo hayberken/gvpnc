@@ -49,15 +49,15 @@ def on_Run(*args):
 	SetWidgetText('run_username',username);
 	SetWidgetText('run_password',password);
 	ShowWindow('run_command');
-	
+
 def on_Quit(*args):
 	sCmd = "killall buildrunconf.sh";
 	RunBash(sCmd);
 	QuitAll();
 
 def on_About(*args):
-	MessageBox("\n\n\tGnome Cisco VPN Connector GUI (gvpnc)\t\t\n\tCopyright © 2007, Super Mike, v. 1.01\t\t\n\n\tThe component vpnc is required and\n\tis not shippped with this GUI. As of\n\tthis build, vpnc copyrights were listed\n\tas: Copyright (C) 2002-2004 Geoffrey\n\tKeating, Maurice Massar. Without their\n\tefforts, gvpnc could not be possible.\n\t\t\n\n\tThis GUI is distributed on the Artistic License.\n\t\t");	
-	
+	MessageBox("\n\n\tGnome Cisco VPN Connector GUI (gvpnc)\t\t\n\tCopyright © 2007, Super Mike, v. 1.01\t\t\n\n\tThe component vpnc is required and\n\tis not shippped with this GUI. As of\n\tthis build, vpnc copyrights were listed\n\tas: Copyright (C) 2002-2004 Geoffrey\n\tKeating, Maurice Massar. Without their\n\tefforts, gvpnc could not be possible.\n\t\t\n\n\tThis GUI is distributed on the Artistic License.\n\t\t");
+
 # and now the ancillary signals
 
 def on_RunNow(*args):
@@ -76,7 +76,7 @@ def on_RunNow(*args):
 	else:
 		Status('Server: ' + sServer + ' Disconnected');
 	SetWidgetText('txtResult', sResult);
-	
+
 def on_Stop(*args):
 	sServer = GetWidgetText('run_server');
 	sCmd = 'vpnc-disconnect';
@@ -84,15 +84,15 @@ def on_Stop(*args):
 	if not 'vpnc: ' in sResult:
 		Status('Server: ' + sServer + ' Disconnected');
 	SetWidgetText('txtResult', sResult);
-	
+
 def on_RunCancel(*args):
 	HideWindow('run_command');
 
 def on_AboutClose(*args):
 	HideWindow('about');
-	
+
 # and now our functions to make life easier
-	
+
 def DoNothing():
 	print('test');
 
@@ -115,34 +115,34 @@ def GetWidgetText(sName):
 		except:
 			sResult = '';
 	return sResult;
-	
+
 def SetWidgetText(sName, sText):
 	if (sText == ''):
 		try:
 			aReset = string.split('\n', "\n");
 			Widget(sName).set_popdown_strings(aReset);
 		except:
-			a = '';	
+			a = '';
 	try:
 		Widget(sName).get_buffer().set_text(sText);
 	except:
 		try:
 			Widget(sName).set_text(sText);
 		except:
-			return;			
-		
+			return;
+
 def Widget(sName):
-	return MyWindows.get_widget(sName);		
-		
+	return MyWindows.get_widget(sName);
+
 def ShowWindow(thewindow):
     Widget(thewindow).show();
-    
+
 def HideWindow(thewindow):
     Widget(thewindow).hide();
 
 def Destroy(thewindow):
     Widget(thewindow).destroy();
-	
+
 def SetResultFont(*args):
 	o = args[0].get_buffer();
 	c1 = o.get_start_iter();
@@ -157,10 +157,10 @@ def Status(sMsg):
 def MessageBox(sMsg):
 	global window;
 	dialog = gtk.MessageDialog(
-		window, 
-		gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, 
-		gtk.MESSAGE_INFO, 
-		gtk.BUTTONS_OK, 
+		window,
+		gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+		gtk.MESSAGE_INFO,
+		gtk.BUTTONS_OK,
 		sMsg
 	);
 	dialog.run();
@@ -169,10 +169,10 @@ def MessageBox(sMsg):
 def ErrorBox(sMsg):
 	global window;
 	dialog = gtk.MessageDialog(
-		window, 
-		gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, 
-		gtk.MESSAGE_WARNING, 
-		gtk.BUTTONS_OK, 
+		window,
+		gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+		gtk.MESSAGE_WARNING,
+		gtk.BUTTONS_OK,
 		sMsg
 	);
 	dialog.run();
@@ -181,10 +181,10 @@ def ErrorBox(sMsg):
 def QuestionYesNoBox(sMsg):
 	global window;
 	dialog = gtk.MessageDialog(
-		window, 
-		gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, 
-		gtk.MESSAGE_QUESTION, 
-		gtk.BUTTONS_YES_NO, 
+		window,
+		gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+		gtk.MESSAGE_QUESTION,
+		gtk.BUTTONS_YES_NO,
 		sMsg
 	);
 	response = dialog.run();
@@ -194,10 +194,10 @@ def QuestionYesNoBox(sMsg):
 def QuestionOKCancelBox(sMsg):
 	global window;
 	dialog = gtk.MessageDialog(
-		window, 
-		gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT, 
-		gtk.MESSAGE_QUESTION, 
-		gtk.BUTTONS_OK_CANCEL, 
+		window,
+		gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+		gtk.MESSAGE_QUESTION,
+		gtk.BUTTONS_OK_CANCEL,
 		sMsg
 	);
 	response = dialog.run();
@@ -216,7 +216,7 @@ def SpawnBash(sBash):
 	output, err = popen2.popen4(sBash);
 	output.close();
 	return;
-	
+
 def PrepareOpenFile(sTitleMessage):
 	sFile = '';
 	fb = gtk.FileSelection(sTitleMessage);
@@ -230,9 +230,9 @@ def PrepareOpenFile(sTitleMessage):
 		sFile = StrTrim(sFile);
 		if ((StrRight(sFile, 1) == '/') or (sFile == '') or (sFile == '/')):
 			MessageBox('No filename entered. Nothing opened.');
-			return;		
-	return sFile;	
-	
+			return;
+	return sFile;
+
 def PrepareSaveFile(sTitleMessage, sFileExtension, bRootHomeSafety):
 	fb = gtk.FileSelection(sTitleMessage);
 	fb.set_position(gtk.WIN_POS_CENTER);
@@ -246,7 +246,7 @@ def PrepareSaveFile(sTitleMessage, sFileExtension, bRootHomeSafety):
 		if ((StrRight(sFile, 1) == '/') or (sFile == '') or (sFile == '/')):
 			MessageBox('No filename entered. Nothing saved.');
 			return;
-		sFileExtension = StrLCase(sFileExtension);			
+		sFileExtension = StrLCase(sFileExtension);
 		if (StrLeft(sFileExtension, 1) != '.'):
 			sFileExtension = '.' + sFileExtension;
 		if (StrLCase(StrRight(sFile, 4)) != sFileExtension):
@@ -265,90 +265,40 @@ def PrepareSaveFile(sTitleMessage, sFileExtension, bRootHomeSafety):
 
 def StrTrim(sInput):
 	return string.strip(sInput);
-				
+
 def StrLCase(sInput):
 	return string.lower(sInput);
-	
+
 def StrUCase(sInput):
 	return string.upper(sInput);
-									
+
 def StrLeft(sInput, nIndex):
 	return sInput[:nIndex];
-	
+
 def StrRight(sInput, nIndex):
 	return sInput[(nIndex * -1):];
 
-def StrContains(sHaystack, sNeedle):
-	if (string.find(sHaystack, sNeedle) != -1):
-		return True;
-	else:
-		return False;
-
-def ReadFile(sFile):
-	sCmd = 'cat "' + sFile + '"';
-	sResult = RunBash(sCmd);
-	return sResult;
-
-def RemoveFile(sFile):
-	if (sFile == ''):
-		return;
-	try:
-		sCmd = 'rm -f "' + sFile + '"';
-		RunBash(sCmd);
-	except:
-		return;
-	
-def SaveFile(sFile, sContents):
-	if (sFile == ''):
-		return;
-	try:
-		sCmd = 'echo -en "' + sContents + '" > "' + sFile + '"';
-		RunBash(sCmd);
-	except:
-		return;
-	
-def TranslateApproxFolderPath(sFolderPath):
-	if ((sFolderPath[-1] == '*') or (sFolderPath[-1] == '/')):
-		sFolderPath = sFolderPath[:-1];
-	sCmd = 'cd ' + sFolderPath + '*; pwd | tr -d "\n"';
-	sResult = RunBash(sCmd);
-	return sResult;
-
-def GetHomeDir():
-	sCmd = 'cd ~; pwd | tr -d "\n"';
-	sResult = RunBash(sCmd);
-	return sResult + '/';
-
-def OpenMozilla(sProtocol, sURL):
-	sCmd = 'mozilla ' + sProtocol + '://' + sURL;
-	SpawnBash(sCmd);		
-	
 def DisableWidget(sName):
-	Widget(sName).set_property('sensitive',False);	
+	Widget(sName).set_property('sensitive',False);
 
 def EnableWidget(sName):
 	Widget(sName).set_property('sensitive',True);
-	
-def GetUser():
-	sCmd = 'whoami | tr -d "\n"';
-	sResult = RunBash(sCmd);
-	return sResult;
-	
+
 def RemoveMenuItems(sMenu, nAfterMenuItem):
 	i = 1;
 	for m in Widget(sMenu).get_children():
 		if (i > nAfterMenuItem):
 			Widget(sMenu).remove(m);
 		i += 1;
-		
+
 def AddMenuItem(sMenu, sLabel, sName, sImage, oSignal):
 	mnu = gtk.ImageMenuItem(sLabel);
 	mnu.set_name(sName);
 	mnu.connect('activate', oSignal);
-	Widget(sMenu).add(mnu);	
+	Widget(sMenu).add(mnu);
 	img = gtk.Image();
 	img.set_from_file(sImage);
-	mnu.set_image(img);	
+	mnu.set_image(img);
 	img.show();
 	mnu.show();
 	return mnu;
@@ -356,8 +306,8 @@ def AddMenuItem(sMenu, sLabel, sName, sImage, oSignal):
 def AddSeparatorMenuItem(sMenu):
 	mnu = gtk.SeparatorMenuItem();
 	Widget(sMenu).add(mnu);
-	mnu.show();	
-	
+	mnu.show();
+
 def gtk_main_quit(*args):
     gtk.main_quit();
 
