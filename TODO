@@ -1,0 +1,10 @@
+* merge various files into one main python file
+* use icon theme instead of local icons
+* only run vpnc with gksudo
+* write profiles into private directory
+* protect profiles from viewing by anyone but owner
+* allow selecting profiles (local and /etc/vpnc)
+* stop using glade???
+* support additional vpnc options???
+
+
