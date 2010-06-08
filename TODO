@@ -1,10 +1,13 @@
-* use icon theme instead of local icons
+Open items
 * allow selecting profiles (local and /etc/vpnc)
 * stop using glade???
 * support additional vpnc options???
+* figure out what is wrong with subprocess.Popen and vpnc (until this is fixed, I can't display vpnc output in the text-area)
+* don't store plaintext passwords!!
 
 Completed items
 * only run vpnc with gksudo (Done)
 * write profiles into private directory (Done)
 * merge various files into one main python file (Done)
 * protect profiles from viewing by anyone but owner (Done)
+* use icon theme instead of local icons (Done)

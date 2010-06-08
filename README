@@ -1,0 +1,21 @@
+1. Install the vpnc command which you must download separately.
+
+2. Edit /etc/vpnc/gvpnc.conf per the group id, group password, and user id that 
+   you have been given by your VPN admin at your office.
+
+3. Install Python and PyGTK if your distribution of Linux does not already
+   include this.
+
+4. Install gksudo
+
+5. Run the gvpnc command.  Click the Connect button or menu item.
+   Fill in the dialog items for your VPN connection. Then click Connect. If you have not used sudo in
+   a while, you will be prompted for your password.  Then there will be some delay as vpnc connects
+   (and possibly the window will grey-out for a while).  Then if all goes well
+   you should see Connected status.  The application may be left open or terminated (vpnc will not
+   exit if the GUI exits).  When you are done using the VPN click the Disconnect button.
+
+
+All configuration files will be stored in $HOME/.config/gvpnc and will be readable 
+only by the user (umask 0066) for security, as passwords will be stored in them. (see the TODO file)
+
