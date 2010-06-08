@@ -325,8 +325,15 @@ def QuitAll():
 
 PROGNAME = 'GVPNC'
 
+# let the glade file exist in multiple possible locations
+gvpnc_bin_path = os.path.join(os.path.abspath(os.path.split(sys.argv[0])[0]), "gvpnc.glade")
+for path in [gvpnc_bin_path, "/usr/share/gvpnc/gvpnc.glade", "/usr/local/share/gvpnc/gvpnc.glade"]:
+	if os.path.exists(path):
+		gvpnc_glade_file = path
+		break
+
 # load our Glade2 file with the GUI
-MyWindows = gtk.glade.XML('gvpnc.glade',None,domain=PROGNAME)
+MyWindows = gtk.glade.XML(gvpnc_glade_file,None,domain=PROGNAME)
 
 # g var initizialization
 window = None
