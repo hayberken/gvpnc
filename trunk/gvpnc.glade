@@ -3,8 +3,6 @@
   <!-- interface-requires gtk+ 2.12 -->
   <!-- interface-naming-policy toplevel-contextual -->
   <widget class="GtkWindow" id="main">
-    <property name="width_request">500</property>
-    <property name="height_request">225</property>
     <property name="visible">True</property>
     <property name="title" translatable="yes">Gnome Cisco VPN Connector (gvpnc)</property>
     <property name="window_position">center</property>
@@ -76,6 +74,7 @@
                       <widget class="GtkImageMenuItem" id="about1">
                         <property name="label">gtk-about</property>
                         <property name="visible">True</property>
+                        <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <signal name="activate" handler="on_About"/>
                       </widget>
@@ -163,7 +162,6 @@
     </child>
   </widget>
   <widget class="GtkDialog" id="run_command">
-    <property name="width_request">343</property>
     <property name="title" translatable="yes">Connect To VPN</property>
     <property name="resizable">False</property>
     <property name="modal">True</property>
@@ -307,6 +305,35 @@
               <packing>
                 <property name="x">8</property>
                 <property name="y">139</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkCheckButton" id="save_password">
+                <property name="label" translatable="yes">Save Password</property>
+                <property name="width_request">187</property>
+                <property name="height_request">25</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="draw_indicator">True</property>
+              </widget>
+              <packing>
+                <property name="x">128</property>
+                <property name="y">165</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkFileChooserButton" id="filechooserbutton1">
+                <property name="width_request">52</property>
+                <property name="height_request">28</property>
+                <property name="visible">True</property>
+                <property name="title" translatable="yes">Select A Configuration</property>
+                <signal name="file_set" handler="on_NewConfig"/>
+                <signal name="file_activated" handler="on_SelectFile"/>
+              </widget>
+              <packing>
+                <property name="x">338</property>
+                <property name="y">7</property>
               </packing>
             </child>
           </widget>
