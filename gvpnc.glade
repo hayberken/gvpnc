@@ -140,7 +140,6 @@
                 <property name="editable">False</property>
                 <property name="wrap_mode">word</property>
                 <property name="cursor_visible">False</property>
-                <signal name="event" handler="SetResultFont"/>
               </widget>
             </child>
           </widget>
