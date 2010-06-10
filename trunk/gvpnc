@@ -99,29 +99,28 @@ def on_RunNow(*args):
 	config.close()
 	HideWindow('run_command')
 	Refresh()
-	Refresh()
 
-# this doesn't work.  It leaves python running at 100% CPU
-#	proc = subprocess.Popen(["gksudo", "vpnc", os.path.join(CONFIGDIR, CONFIGFILE)],
-#												stderr=subprocess.PIPE, stdout=subprocess.PIPE)
-#	output, error = proc.communicate()
+	proc = subprocess.Popen(["gksudo", "vpnc", CONFIGFILE], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+	Result, Error = proc.communicate()
 
-#using this method instead
-	Result = subprocess.call(["gksudo", "vpnc", CONFIGFILE])
-	if Result:
+	if Error:
 		Status('Server: ' + sServer + ' Failed to Connect.')
+		SetWidgetText('txtResult', Error)
 	else:
 		Status('Server: ' + sServer + ' CONNECTED')
-#	SetWidgetText('txtResult', sResult)
+		SetWidgetText('txtResult', Result)
 
 def on_Stop(*args):
 	sServer = GetWidgetText('run_server')
-	Result = subprocess.call(["gksudo", "vpnc-disconnect"])
-	if Result:
-		Status("No vpnc found running.")
+	proc = subprocess.Popen(["gksudo", "vpnc-disconnect"], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+	Result, Error = proc.communicate()
+
+	if Error:
+		Status("Error.")
+		SetWidgetText('txtResult', Error)
 	else:
 		Status('Server: ' + sServer + ' Disconnected')
-#	SetWidgetText('txtResult', sResult)
+		SetWidgetText('txtResult', Result)
 
 def on_RunCancel(*args):
 	HideWindow('run_command')
@@ -183,7 +182,6 @@ def SetResultFont(*args):
 	c1 = o.get_start_iter()
 	c2 = o.get_end_iter()
 	o.apply_tag(txtResultFont,c1,c2)
-	pass
 
 def Status(sMsg):
 	Widget('statusbar1').pop(0)
@@ -269,7 +267,7 @@ window = None
 # change whole app's font
 Widget('main').get_settings().set_string_property('gtk-font-name', 'sans normal 9','')
 
-# change font on the two main text fields
+# change font on the main text field
 o = Widget('txtResult').get_buffer()
 txtResultFont = o.create_tag('txtResultFont')
 txtResultFont.set_property('font', 'Luxi Mono 8')
