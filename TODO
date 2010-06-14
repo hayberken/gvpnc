@@ -2,7 +2,7 @@ Open items
 * stop using glade (use GTKBuilder instead?)
 * support additional vpnc options???
 * don't store plaintext passwords!!
-* create an installer script
+* remember last selected profile
 
 Completed items
 * only run vpnc with gksudo (Done)
@@ -13,3 +13,4 @@ Completed items
 * allow selecting profiles (Done)
 * figure out what is wrong with subprocess.Popen and vpnc (Done)
 * create a .desktop file (Done)
+* create an installer script (Done)
