@@ -1,0 +1,11 @@
+
+[Desktop Entry]
+Name=Gvpnc
+Name[en_US]=Gvpnc
+Comment=Connect to Office Network (gui for vpnc)
+Exec=gvpnc
+Icon=security-high
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=GNOME;GTK;Network;Application;VPN
