@@ -14,3 +14,4 @@ Completed items
 * figure out what is wrong with subprocess.Popen and vpnc (Done)
 * create a .desktop file (Done)
 * create an installer script (Done)
+* check that gksudo and vpnc are installed/executable (Done)
