@@ -13,7 +13,7 @@
 # and then added others as I received errors
 import sys
 import os
-from subprocess import PIPE, Popen
+from subprocess import PIPE, Popen, call
 import string
 import pygtk
 pygtk.require('2.0')
@@ -101,6 +101,14 @@ def on_RunNow(*args):
 	HideWindow('run_command')
 	Refresh()
 
+	if call(["which","gksudo"]):
+		ErrorBox("Cannot find gksudo on your path.  Please install gksudo before running gvpnc.")
+		return
+
+	if call(["which","vpnc"]):
+		ErrorBox("Cannot find vpnc on your path.  Please install vpnc before running gvpnc.")
+		return
+		
 	proc = Popen(["gksudo", "vpnc", CONFIGFILE], stderr=PIPE, stdout=PIPE)
 	Result, Error = proc.communicate()
 
